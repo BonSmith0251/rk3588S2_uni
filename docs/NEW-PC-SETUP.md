@@ -42,8 +42,11 @@ cp -r /mnt/c/path/to/_MIGRATION/rev ~/unitree_go2_SOM_analysis/
 Then one command regenerates all three (run_all.sh + rkport, in parallel, ~20 min):
 ```bash
 cd ~/unitree_go2_SOM_analysis
-bash prepare_assets.sh
+sudo bash prepare_assets.sh        # sudo: rkdevtool_image's rootfs rebuild needs root
 ```
+Without `sudo`, `extracted/` and `extracted_decrypted/` still regenerate fine and
+`rkdevtool_image/` is skipped with a one-line note (re-run that step later as root).
+The three stages are independent — one failing never blocks the others.
 Produces (all gitignored, local):
 - `extracted/` — partitions, rootfs, 114k-row manifest, **and `go2-bsp/` with prebuilt blobs** (`--with-bsp` is on by default, so you get the kernel `Image`/ramdisks/bl31/tee too).
 - `rkdevtool_image/` — flashable 1:1 RKDevTool project (rebuilt `rootfs.img`).
