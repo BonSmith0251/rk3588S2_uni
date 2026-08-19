@@ -34,6 +34,11 @@ Download the 4 dump parts from your Google Drive into the analysis repo's `rom/`
 ```
 ~/unitree_go2_SOM_analysis/rom/A_rk3588S2_dog_bin.BIN   (…B, C, D)
 ```
+For the full decrypted-config swap, first drop in the 39 KB `rev/` tree from your
+migration bundle (adds the 22 FMX plaintexts that aren't in git):
+```bash
+cp -r /mnt/c/path/to/_MIGRATION/rev ~/unitree_go2_SOM_analysis/
+```
 Then one command regenerates all three (run_all.sh + rkport, in parallel, ~20 min):
 ```bash
 cd ~/unitree_go2_SOM_analysis
@@ -45,10 +50,10 @@ Produces (all gitignored, local):
 - `extracted_decrypted/` — `extracted/rootfs` with the **10 de-VirBox'd binaries** swapped in.
 
 **On the decrypted configs:** the 10 decrypted *binaries* are committed in `rev/` and
-swap in automatically. The 22 FMX *config* plaintexts are **not** committed — the
-script skips them and tells you how to add them (`python3 tools/fmx.py` regenerates
-the 10 `cmd/` scripts; copy `rev/master_decrypted/fmx_all_decrypted/` from the old
-machine for the full 22). The binaries are the substance; configs are optional.
+swap in automatically. The 22 FMX *config* plaintexts are **not** committed — if you
+did the `cp -r .../rev` step above they swap in too; otherwise the script skips them
+(and you can regenerate the 10 `cmd/` scripts with `python3 tools/fmx.py`). The
+binaries are the substance; configs are optional.
 
 ## 3. Bring up the dev project
 
