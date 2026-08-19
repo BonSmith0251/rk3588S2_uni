@@ -1,0 +1,46 @@
+# ============================================================
+#  rk3588S2_uni — Unitree Go2 / RK3588S2 development workspace
+#  Track source, scripts, docs. Exclude fetched upstreams,
+#  build products, large images, and per-device secrets.
+# ============================================================
+
+# --- Fetched upstream sources (refetched by scripts/fetch_sources.sh) ---
+third_party/*/
+!third_party/.gitkeep
+
+# --- Reused BSP import (vendored copy or submodule; blobs are large) ---
+vendor_bsp/**/prebuilt/
+
+# --- Build products ---
+bsp/out/
+out/
+downloads/
+**/build/
+
+# --- Images & blobs (over GitHub's 100 MB limit; per-device) ---
+*.img
+*.IMG
+*.bin
+*.BIN
+*.rknn
+
+# --- Toolchains (fetched, not tracked) ---
+toolchain/aarch64-*/
+toolchain/*.tar.*
+
+# --- QEMU scratch ---
+qemu/**/rootfs/
+qemu/**/*.qcow2
+
+# --- Per-device secrets — NEVER commit ---
+**/uni.img
+**/full.img
+*.hash
+secrets/
+
+# --- Python / caches / logs ---
+__pycache__/
+*.pyc
+*.pyo
+*.log
+*.tmp

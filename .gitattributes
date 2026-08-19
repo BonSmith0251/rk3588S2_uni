@@ -1,0 +1,13 @@
+# Scripts and build files run on Linux/WSL — force LF so they never get CRLF.
+* text=auto eol=lf
+*.sh    text eol=lf
+Makefile text eol=lf
+*.cmake text eol=lf
+*.cpp   text eol=lf
+*.md    text eol=lf
+
+# Binary blobs (should be gitignored anyway; belt and suspenders)
+*.img   binary
+*.bin   binary
+*.BIN   binary
+*.rknn  binary
