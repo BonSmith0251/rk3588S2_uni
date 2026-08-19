@@ -55,8 +55,11 @@ source toolchain/env.sh
 make images
 ```
 
-New machine? See **[docs/MIGRATION.md](docs/MIGRATION.md)**. Full roadmap:
-**[docs/PLAN.md](docs/PLAN.md)**.
+New machine? See **[docs/WSL-SETUP.md](docs/WSL-SETUP.md)** (build env) and
+**[docs/MIGRATION.md](docs/MIGRATION.md)** (moving data). Full roadmap:
+**[docs/PLAN.md](docs/PLAN.md)**. Other docs: [boot-chain](docs/boot-chain.md),
+[dds-topics](docs/dds-topics.md), [RUNBOOK-flash](docs/RUNBOOK-flash.md),
+[SSH-PATCH](docs/SSH-PATCH.md).
 
 ## Roles
 
