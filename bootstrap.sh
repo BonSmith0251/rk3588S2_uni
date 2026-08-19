@@ -61,6 +61,8 @@ git submodule update --init --depth 1 vendor_bsp/analysis \
 [ -f vendor_bsp/analysis/go2-bsp/config/board.conf ] \
   && say "  submodule OK (go2-bsp present)" \
   || die "submodule missing go2-bsp — check network / access to the analysis repo"
+# submodule scripts may be stored non-executable (Windows git); make them runnable
+find vendor_bsp/analysis -name '*.sh' -exec chmod +x {} + 2>/dev/null || true
 
 # --- 3. stage prebuilt blobs from a migration bundle (optional) --------------
 if [ -n "$BUNDLE" ]; then

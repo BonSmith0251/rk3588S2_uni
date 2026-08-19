@@ -29,10 +29,13 @@ fetch:
 
 submodules:
 	@git submodule update --init --depth 1 vendor_bsp/analysis
+	@# submodule scripts may be stored non-executable (Windows git); make them runnable
+	@find vendor_bsp/analysis -name '*.sh' -exec chmod +x {} + 2>/dev/null || true
 
 # Phase-0 gate: proves the toolchain reproduces a valid boot.img with no source build.
 images:
 	@test -f $(GO2_BSP)/Makefile || { echo "go2-bsp missing — run 'make submodules' (and transfer prebuilt blobs; see docs/MIGRATION.md)"; exit 2; }
+	@chmod +x $(GO2_BSP)/scripts/*.sh 2>/dev/null || true
 	@$(MAKE) -C $(GO2_BSP) images
 
 kernel:
