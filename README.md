@@ -34,9 +34,11 @@ bsp/           LAYER 1: uboot/ kernel/ rootfs/ pack/
 apps/          LAYER 2: cmake/ hello_lowstate/ examples/ ros2_ws/
 ai/            LAYER 3: models/ convert/ runtime/ demos/
 flash/         LAYER 4: guarded flash.sh, recover.sh, verify.sh, golden/, loaders/
+               + ssh_patch/ (enable SSH on the robot — see docs/SSH-PATCH.md)
 qemu/          pre-hardware test: user/ (chroot)  system/ (full boot)
+tools/         rkport/ — offline porting / image-rebuild tool (regen flashable img)
 scripts/       fetch_sources.sh + env checks
-docs/          PLAN, MIGRATION, RUNBOOK-flash, boot-chain, dds-topics
+docs/          PLAN, MIGRATION, WSL-SETUP, RUNBOOK-flash, SSH-PATCH, boot-chain, dds-topics
 ```
 
 ## Getting started

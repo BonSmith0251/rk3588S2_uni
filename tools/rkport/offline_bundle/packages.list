@@ -1,0 +1,45 @@
+# Top-level APT packages for the RK3588S2 porter, Ubuntu 22.04 (jammy) amd64.
+# Dependencies are resolved and downloaded recursively by collect.sh.
+# Lines starting with # and blank lines are ignored.
+
+# --- ext4 read / rebuild / check ---
+e2fsprogs
+
+# --- GPT / partition / loop ---
+gdisk
+parted
+kpartx
+
+# --- sparse image conversion (simg2img / img2simg) ---
+android-sdk-libsparse-utils
+
+# --- FIT / boot image tooling ---
+device-tree-compiler
+u-boot-tools
+
+# --- compression used by kernels / ramdisks ---
+zstd
+lz4
+xz-utils
+cpio
+
+# --- password hashing ---
+whois
+openssl
+
+# --- target emulation: userland (chroot) + full-system (virt) ---
+qemu-user-static
+binfmt-support
+qemu-system-arm
+qemu-efi-aarch64
+
+# --- rkdeveloptool runtime dependency ---
+libusb-1.0-0
+
+# --- GUI + logic ---
+python3
+python3-pyqt5
+
+# --- analysis helpers ---
+binwalk
+file

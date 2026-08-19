@@ -8,8 +8,9 @@ pkill -9 sshd; service ssh stop; systemctl disable ssh
 ```
 
 So just setting a password is **not** enough — `sshd` gets killed and disabled on
-boot. Two scripts solve this. They live in the migration bundle at
-`flashing_pc/ssh_patch/` (and in the analysis repo under `_porting_tools/ssh_patch/`).
+boot. Two scripts solve this. They live in this repo at
+[`flash/ssh_patch/`](../flash/ssh_patch/) (also in the migration bundle at
+`flashing_pc/ssh_patch/`).
 
 - **`go2_ssh_patch.sh`** — the full tool: live robot, mounted rootfs, **or** an image
   file (auto-mounts eMMC/GPT dumps and bare `rootfs.img`). Verifies the password hash,
