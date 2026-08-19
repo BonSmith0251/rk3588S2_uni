@@ -72,7 +72,9 @@ source toolchain/env.sh
 make images
 ```
 
-New machine? See **[docs/WSL-SETUP.md](docs/WSL-SETUP.md)** (build env) and
+New machine? Start with **[docs/NEW-PC-SETUP.md](docs/NEW-PC-SETUP.md)** (the fast
+end-to-end path: clone → regenerate assets → build). Details in
+**[docs/WSL-SETUP.md](docs/WSL-SETUP.md)** (build env) and
 **[docs/MIGRATION.md](docs/MIGRATION.md)** (moving data). Full roadmap:
 **[docs/PLAN.md](docs/PLAN.md)**. Other docs: [boot-chain](docs/boot-chain.md),
 [dds-topics](docs/dds-topics.md), [RUNBOOK-flash](docs/RUNBOOK-flash.md),
