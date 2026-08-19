@@ -52,10 +52,11 @@ docs/          PLAN, MIGRATION, WSL-SETUP, RUNBOOK-flash, SSH-PATCH, boot-chain,
 
 **One command** (does submodule + deps + blobs + env check + Phase-0 gate):
 ```bash
-./bootstrap.sh --install-deps --bundle /mnt/c/path/to/_MIGRATION
+./bootstrap.sh --install-deps --bundle ~/unitree_go2_SOM_analysis
 ```
-`--bundle` points at your migration bundle so it stages the prebuilt blobs; drop it
-if you've staged them another way. `./bootstrap.sh --help` lists the flags.
+`--bundle` points at the analysis repo (after `prepare_assets.sh` regenerated its
+`go2-bsp/` prebuilt blobs from the dump) so it stages them; drop it if you've staged
+the blobs another way. `./bootstrap.sh --help` lists the flags.
 
 Or step by step:
 ```bash

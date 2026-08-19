@@ -10,9 +10,10 @@
 #   ./bootstrap.sh [--install-deps] [--bundle DIR] [--fetch] [--no-images]
 #
 #   --install-deps   apt-get install the build toolchain + deps (uses sudo)
-#   --bundle DIR     copy prebuilt blobs from a _MIGRATION bundle at DIR
-#                    (expects DIR/build_pc/go2-bsp-prebuilt/...). e.g.
-#                    --bundle /mnt/c/Users/Administrator/Downloads/_MIGRATION
+#   --bundle DIR     stage go2-bsp prebuilt blobs from DIR. DIR may be a
+#                    regenerated analysis repo (has go2-bsp/), the go2-bsp dir
+#                    itself, or an old _MIGRATION/build_pc layout. e.g.
+#                    --bundle ~/unitree_go2_SOM_analysis   (after prepare_assets.sh)
 #   --fetch          also run scripts/fetch_sources.sh (pull pinned upstreams)
 #   --no-images      skip the final `make images` gate
 #   -h | --help
@@ -66,12 +67,21 @@ find vendor_bsp/analysis -name '*.sh' -exec chmod +x {} + 2>/dev/null || true
 
 # --- 3. stage prebuilt blobs from a migration bundle (optional) --------------
 if [ -n "$BUNDLE" ]; then
-  src="$BUNDLE/build_pc/go2-bsp-prebuilt"
-  [ -d "$src" ] || die "no build_pc/go2-bsp-prebuilt under: $BUNDLE"
-  say "staging prebuilt blobs from $src ..."
-  cp -r "$src/kernel/prebuilt" vendor_bsp/analysis/go2-bsp/kernel/
-  cp -r "$src/u-boot/prebuilt" vendor_bsp/analysis/go2-bsp/u-boot/
-  say "  prebuilt blobs staged"
+  # Find a go2-bsp-shaped dir with kernel/prebuilt (regenerated go2-bsp, its parent, or old layout)
+  src=""
+  for cand in "$BUNDLE/go2-bsp" "$BUNDLE" "$BUNDLE/build_pc/go2-bsp-prebuilt"; do
+    [ -f "$cand/kernel/prebuilt/Image" ] && { src="$cand"; break; }
+  done
+  if [ -z "$src" ]; then
+    say "  --bundle: no prebuilt blobs under $BUNDLE (looked for kernel/prebuilt/Image)."
+    say "    Blobs regenerate from the dump: run 'prepare_assets.sh --with-bsp' (or default) in"
+    say "    the analysis repo, then pass --bundle ~/unitree_go2_SOM_analysis"
+  else
+    say "staging prebuilt blobs from $src ..."
+    cp -r "$src/kernel/prebuilt" vendor_bsp/analysis/go2-bsp/kernel/
+    cp -r "$src/u-boot/prebuilt" vendor_bsp/analysis/go2-bsp/u-boot/
+    say "  prebuilt blobs staged"
+  fi
 fi
 
 # --- 4. fetch upstreams (optional) -------------------------------------------
@@ -90,7 +100,7 @@ if [ "$DO_IMAGES" = 1 ]; then
   else
     say "skipping 'make images' — need 'make' installed AND prebuilt blobs staged."
     say "  install deps:  ./bootstrap.sh --install-deps"
-    say "  stage blobs:   ./bootstrap.sh --bundle /mnt/c/.../_MIGRATION"
+    say "  stage blobs:   ./bootstrap.sh --bundle ~/unitree_go2_SOM_analysis  (after prepare_assets.sh)"
     say "  see docs/WSL-SETUP.md"
   fi
 fi
