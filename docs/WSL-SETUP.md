@@ -5,6 +5,24 @@ The `.sh` scripts and all BSP builds are Linux/bash and need Linux tools
 they run inside **WSL2 Ubuntu 22.04**, not in PowerShell/cmd. Git Bash can run the
 *git* commands but lacks the build toolchain — use WSL2 for anything past `git`.
 
+## 0. Prerequisites (network + GitHub access)
+
+Confirm these *inside WSL* before cloning — both were real failure points in testing:
+
+- **Working internet + DNS.** `curl -sSI https://github.com | head -1` should return
+  quickly. If it hangs/fails (common with WSL "mirrored" networking breaking DNS),
+  fix `/etc/resolv.conf` (e.g. add `nameserver 1.1.1.1`) or set
+  `networkingMode=NAT` under `[wsl2]` in `C:\Users\<you>\.wslconfig`, then
+  `wsl --shutdown` and reopen.
+- **GitHub credentials for the private repos.** Both `rk3588S2_uni` **and** its
+  `vendor_bsp/analysis` submodule (`unitree_go2_SOM_analysis`) are private, so WSL git
+  needs auth or the clone/submodule step fails. Easiest: reuse Windows Git Credential
+  Manager from WSL —
+  ```bash
+  git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec/git-core/git-credential-manager.exe"
+  ```
+  (adjust the path to your Git install; older builds use `.../mingw64/bin/git-credential-manager-core.exe`). Or install `gh` in WSL and run `gh auth login` + `gh auth setup-git`.
+
 ## 1. Install WSL2 + Ubuntu 22.04
 
 In an **Administrator PowerShell**:
