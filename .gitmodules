@@ -1,3 +1,4 @@
 [submodule "vendor_bsp/analysis"]
 	path = vendor_bsp/analysis
 	url = https://github.com/BonSmith0251/unitree_go2_SOM_analysis.git
+	branch = docs/firmware-writeups
