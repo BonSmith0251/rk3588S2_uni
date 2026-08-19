@@ -34,7 +34,9 @@ export RK_OPTEE_LOAD_ADDR="0x8400000"
 
 # --- Paths -------------------------------------------------------------
 export TP="$ROOT/third_party"
-export VENDOR_BSP="$ROOT/vendor_bsp"
+# go2-bsp lives inside the analysis-repo submodule at vendor_bsp/analysis/go2-bsp
+export GO2_BSP="$ROOT/vendor_bsp/analysis/go2-bsp"
+export VENDOR_BSP="$GO2_BSP"   # back-compat alias
 export OUT="$ROOT/bsp/out"
 
 echo "[env] ARCH=$ARCH CROSS_COMPILE=$CROSS_COMPILE  SOC=$RK_SOC  kernel=$RK_KERNEL_VERSION"

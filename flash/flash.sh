@@ -39,7 +39,7 @@ if [ ! -e "$ROOT/flash/golden/SHA256SUMS" ]; then
   exit 6
 fi
 
-VENDOR_FLASH="${VENDOR_FLASH:-$ROOT/vendor_bsp/scripts/flash.sh}"
+VENDOR_FLASH="${VENDOR_FLASH:-$ROOT/vendor_bsp/analysis/go2-bsp/scripts/flash.sh}"
 if [ ! -x "$VENDOR_FLASH" ] && [ ! -f "$VENDOR_FLASH" ]; then
   echo "vendor flash script not found at $VENDOR_FLASH (import go2-bsp into vendor_bsp/)." >&2
   exit 7

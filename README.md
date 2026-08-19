@@ -42,15 +42,17 @@ docs/          PLAN, MIGRATION, RUNBOOK-flash, boot-chain, dds-topics
 ## Getting started
 
 ```bash
-# 1. one-time host setup (WSL2 Ubuntu 22.04)
-./scripts/check_env.sh          # verify toolchain + deps
+# 1. pull the reused go2-bsp (submodule) + pinned upstreams
+make submodules                 # git submodule update --init vendor_bsp/analysis
 ./scripts/fetch_sources.sh      # pull pinned upstreams into third_party/
 
-# 2. environment
+# 2. one-time host setup (WSL2 Ubuntu 22.04) + environment
+./scripts/check_env.sh          # verify toolchain + deps + submodule
 source toolchain/env.sh
 
 # 3. Phase 0 gate — prove the toolchain reproduces a valid boot.img
-make -C vendor_bsp images
+#    (needs the prebuilt blobs staged into vendor_bsp/analysis/go2-bsp — see docs/MIGRATION.md)
+make images
 ```
 
 New machine? See **[docs/MIGRATION.md](docs/MIGRATION.md)**. Full roadmap:

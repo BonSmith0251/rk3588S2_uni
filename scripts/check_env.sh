@@ -35,10 +35,17 @@ echo "== QEMU (pre-hardware test) =="
 chk qemu-aarch64-static "Tier-2 chroot userland test"
 chk qemu-system-aarch64 "Tier-3 full-system boot test"
 echo
-echo "== reused assets =="
-for p in vendor_bsp/config/board.conf vendor_bsp/kernel/config/rk3588s_go2_defconfig; do
-  if [ -e "$ROOT/$p" ]; then printf "  [ok]   %s\n" "$p"; else printf "  [MISS] %s (import go2-bsp into vendor_bsp/)\n" "$p"; fi
+echo "== reused assets (go2-bsp submodule) =="
+GO2_BSP="vendor_bsp/analysis/go2-bsp"
+for p in "$GO2_BSP/config/board.conf" "$GO2_BSP/kernel/config/rk3588s_go2_defconfig"; do
+  if [ -e "$ROOT/$p" ]; then printf "  [ok]   %s\n" "$p"; else printf "  [MISS] %s (run: make submodules)\n" "$p"; fi
 done
+# Prebuilt blobs are gitignored in the analysis repo — they must be transferred out-of-band.
+if [ -e "$ROOT/$GO2_BSP/kernel/prebuilt/Image" ]; then
+  printf "  [ok]   %s/kernel/prebuilt/Image\n" "$GO2_BSP"
+else
+  printf "  [WARN] %s/kernel/prebuilt/ absent — needed for 'make images' (see docs/MIGRATION.md)\n" "$GO2_BSP"
+fi
 echo
 echo "Result: $ok present, $miss missing."
 [ "$miss" -eq 0 ] || echo "Install the missing tools (see docs/MIGRATION.md step 1) before building."

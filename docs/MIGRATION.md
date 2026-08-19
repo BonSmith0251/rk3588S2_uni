@@ -35,14 +35,16 @@ per-device — it belongs on the flashing machine, not the build PC.
 
 3. **Get Tier A (source):**
    ```bash
-   git clone <your rk3588S2_uni remote> rk3588S2_uni
-   # reused assets — either clone the analysis repo:
-   git clone https://github.com/BonSmith0251/unitree_go2_SOM_analysis.git
+   git clone https://github.com/BonSmith0251/rk3588S2_uni.git
+   cd rk3588S2_uni
+   make submodules      # pulls go2-bsp source via vendor_bsp/analysis submodule
    ```
-   Point `vendor_bsp/` at the cloned `go2-bsp/` (submodule or a copy).
+   The reused go2-bsp source arrives automatically through the submodule at
+   `vendor_bsp/analysis/go2-bsp` — no separate clone needed.
 
-4. **Get Tier B (prebuilt blobs)** — these are NOT in git. Copy
-   `go2-bsp/**/prebuilt/` from the old machine via external drive, network share,
+4. **Get Tier B (prebuilt blobs)** — these are NOT in git (gitignored in the
+   analysis repo, so the submodule omits them). Copy `go2-bsp/**/prebuilt/` from the
+   old machine into `vendor_bsp/analysis/go2-bsp/` via external drive, network share,
    or `scp`/`rsync`. Verify with the SHA256SUMS staged in `flash/golden/`.
 
 5. **Fetch fresh upstreams (never migrate these):**
