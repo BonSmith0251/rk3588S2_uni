@@ -52,6 +52,13 @@ Produces (all gitignored, local):
 - `rkdevtool_image/` — flashable 1:1 RKDevTool project (rebuilt `rootfs.img`).
 - `extracted_decrypted/` — `extracted/rootfs` with the **10 de-VirBox'd binaries** swapped in.
 
+**Archiving the results:** add `--pack` to compress the regenerated dirs into
+`packaged/*.tar.zst` (+ `SHA256SUMS`) — handy for shipping `rkdevtool_image` to the
+flashing PC or backing up the outputs:
+```bash
+sudo bash prepare_assets.sh --pack          # or: --pack --pack-dir /mnt/d/out
+```
+
 **On the decrypted configs:** the 10 decrypted *binaries* are committed in `rev/` and
 swap in automatically. The 22 FMX *config* plaintexts are **not** committed — if you
 did the `cp -r .../rev` step above they swap in too; otherwise the script skips them
