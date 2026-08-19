@@ -43,9 +43,16 @@ docs/          PLAN, MIGRATION, WSL-SETUP, RUNBOOK-flash, SSH-PATCH, boot-chain,
 
 ## Getting started
 
+> **Run everything below inside WSL2 Ubuntu — NOT cmd.exe or PowerShell.**
+> `make`, `cp`, `source`, and `./*.sh` are Linux commands; in cmd you'll get
+> `'make' is not recognized`. First-time WSL install + deps: **[docs/WSL-SETUP.md](docs/WSL-SETUP.md)**.
+> Open the Linux shell with `wsl` (or launch "Ubuntu 22.04" from the Start menu),
+> then clone the repo *inside* WSL (`cd ~ && git clone …`) for much faster builds —
+> don't build from `/mnt/c/...`.
+
 ```bash
 # 1. pull the reused go2-bsp (submodule) + pinned upstreams
-make submodules                 # git submodule update --init vendor_bsp/analysis
+make submodules                 # = git submodule update --init vendor_bsp/analysis
 ./scripts/fetch_sources.sh      # pull pinned upstreams into third_party/
 
 # 2. one-time host setup (WSL2 Ubuntu 22.04) + environment

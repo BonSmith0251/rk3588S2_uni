@@ -33,8 +33,10 @@ per-device — it belongs on the flashing machine, not the build PC.
    download from ARM's developer site. Kernel/U-Boot must use this to avoid
    module-loading ABI drift against the RT kernel.
 
-3. **Get Tier A (source):**
+3. **Get Tier A (source)** — do this **inside the WSL Ubuntu shell** (run `wsl`
+   first), in your Linux home, not in cmd.exe and not under `/mnt/c`:
    ```bash
+   cd ~
    git clone https://github.com/BonSmith0251/rk3588S2_uni.git
    cd rk3588S2_uni
    make submodules      # pulls go2-bsp source via vendor_bsp/analysis submodule
