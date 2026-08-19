@@ -50,6 +50,14 @@ docs/          PLAN, MIGRATION, WSL-SETUP, RUNBOOK-flash, SSH-PATCH, boot-chain,
 > then clone the repo *inside* WSL (`cd ~ && git clone …`) for much faster builds —
 > don't build from `/mnt/c/...`.
 
+**One command** (does submodule + deps + blobs + env check + Phase-0 gate):
+```bash
+./bootstrap.sh --install-deps --bundle /mnt/c/path/to/_MIGRATION
+```
+`--bundle` points at your migration bundle so it stages the prebuilt blobs; drop it
+if you've staged them another way. `./bootstrap.sh --help` lists the flags.
+
+Or step by step:
 ```bash
 # 1. pull the reused go2-bsp (submodule) + pinned upstreams
 make submodules                 # = git submodule update --init vendor_bsp/analysis
